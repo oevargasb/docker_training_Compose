@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  dockertraining_compose_omar_vargas:
+    image: ${DOCKER_REGISTRY-}dockertrainingcomposeomarvargas
+    build:
+      context: .
+      dockerfile: dockertraining_compose_Omar_Vargas/Dockerfile
+    ports: 
+    - "8088:80"
+    environment:
+        ["ConnectionStrings:FoodDB;Server=newdb;Port=3306;Database=fooddb"]
+    links:
+    - newdb
+  newdb:
+    image: mysql 
+    environment:
+        MYSQL_DATABASE: "FoodDB"
+        MYSQL_USER: "test"
+        MYSQL_PASSWORD: "123456"
+        MYSQL_ROOT_PASSWORD: "778899"
+    ports:
+    - "3380:3306"
+    volumes:
+    - mydbvol:/var/lib/mysql
+volumes:
+    mydbvol:
+      

@@ -1,0 +1,30 @@
+services:
+  dockertraining_compose_omar_vargas:
+    build:
+      context: C:\Users\brenda.blanco\source\repos\dockertraining_compose_Omar_Vargas
+      dockerfile: dockertraining_compose_Omar_Vargas/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings:FoodDB;Server: newdb;Port=3306;Database=fooddb
+    image: dockertrainingcomposeomarvargas
+    links:
+    - newdb
+    ports:
+    - target: 80
+    - published: 8088
+      target: 80
+  newdb:
+    environment:
+      MYSQL_DATABASE: FoodDB
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: '778899'
+      MYSQL_USER: test
+    image: mysql
+    ports:
+    - published: 3380
+      target: 3306
+    volumes:
+    - mydbvol:/var/lib/mysql:rw
+version: '3.4'
+volumes:
+  mydbvol: {}

@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  dockertraining_compose_omar_vargas:
+    image: dockertrainingcomposeomarvargas:dev
+    container_name: dockertraining_compose_Omar_Vargas
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "dockertraining_compose_Omar_Vargas"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_dockertraining_compose_omar_vargas$
+    volumes:
+      - C:\Users\brenda.blanco\source\repos\dockertraining_compose_Omar_Vargas\dockertraining_compose_Omar_Vargas:/app
+      - C:\Users\brenda.blanco\source\repos\dockertraining_compose_Omar_Vargas:/src
+      - C:\Users\brenda.blanco\vsdbg\vs2017u5:/remote_debugger:rw
+#$nuget_volume_mapping_dockertraining_compose_omar_vargas$
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_dockertraining_compose_omar_vargas$ \"bin/Debug/netcoreapp3.1/dockertraining_compose_Omar_Vargas.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true
